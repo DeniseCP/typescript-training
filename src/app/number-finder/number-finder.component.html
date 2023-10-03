@@ -1,0 +1,7 @@
+<div>
+  <h1>Find the Largest Number</h1>
+  <input type="text" name="numberList" id="numberList" [(ngModel)]="numberList" placeholder="Enter numbers (comma-separated)" />
+  <button type="submit" (click)="findLargestNumber()" [disabled]="
+  numberList === ''">Find Largest</button>
+  <p *ngIf="largestNumber!==null">Largest number is: {{largestNumber}} </p>
+</div>

@@ -1,0 +1,95 @@
+<div style="margin: 10px; padding: 5px;">
+  <h1>Student Managment</h1>
+  <h3>Student list</h3>
+
+  <div style="display: flex; justify-content: space-between; width: 30%;">
+    <button mat-raised-button color="primary" *ngIf="visibilityChanged === 'hidden'" (click)="visibilityChanged = 'shown'"
+      style="margin-bottom: 10px;">
+      Add Student
+    </button>
+
+    <button mat-raised-button color="primary" *ngIf="searchVisibility === 'close'" (click)="searchVisibility = 'open'"
+      style="margin-bottom: 10px;">
+      Search
+    </button>
+  </div>
+
+  <mat-card *ngIf="searchVisibility === 'open'">
+    <mat-card-header>
+      <mat-card-title>Search Student By Name</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div style="display: flex; width: 35%; justify-content: space-between; align-items: center;">
+        <mat-form-field appearance="fill">
+          <mat-label>Search</mat-label>
+          <input matInput #search type="text" (keyup)="onKeyUp(search.value)">
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="button" (click)="searchVisibility = 'close'">Cancel</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="visibilityChanged ==='shown'">
+    <mat-card-header>
+      <mat-card-title style="color: #fff">Add New Student Form</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="newStudentForm" style="display: flex; align-items: start; justify-content: start; flex-direction: column;">
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input matInput type="text" formControlName="name" placeholder="Ex: Denise Pereira">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Age</mat-label>
+          <input matInput type="number" name="age" id="age" formControlName="age" placeholder="12">
+          <mat-hint style="color: #fff;">Age cannot be less than 12 years old</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Course</mat-label>
+          <input matInput type="text" name="course" id="course" formControlName="course" placeholder="Ex: Science">
+        </mat-form-field>
+      </form>
+      <div style="display: flex; justify-content: space-between; width: 30%;">
+        <button mat-raised-button color="primary" type="submit" (click)="addNewStudent()">Add New Student</button>
+        <button mat-raised-button color="primary" type="submit" (click)="visibilityChanged = 'hidden'">Cancel</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <table mat-table [dataSource]="students" class="mat-elevation-z8 mt-10">
+    <!-- Name column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let student">{{student.name}}</td>
+    </ng-container>
+
+
+    <!-- Age column -->
+    <ng-container matColumnDef="age">
+      <th mat-header-cell *matHeaderCellDef>Age</th>
+      <td mat-cell *matCellDef="let student">{{student.age}}</td>
+    </ng-container>
+
+
+    <!-- Course column -->
+    <ng-container matColumnDef="course">
+      <th mat-header-cell *matHeaderCellDef>Course</th>
+      <td mat-cell *matCellDef="let student">{{student.course}}</td>
+    </ng-container>
+
+    <!-- Action column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let student">
+        <ng-container>
+          <button type="button" (click)="removeStudent(student.id)" mat-mini-fab color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

@@ -6,5 +6,25 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'typescript-training';
+
+  public value: number = 0;
+  public warnMsg: boolean = false;
+
+  public increment(): void {
+    this.warnMsg = false;
+    this.value++;
+  }
+
+  public reset(): void {
+    this.warnMsg = false;
+    this.value = 0;
+  }
+
+  public decrease(): void {
+    if (this.value !== 0) {
+      this.value--;
+    } else {
+      this.warnMsg = true;
+    }
+  }
 }
