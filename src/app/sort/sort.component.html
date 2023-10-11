@@ -1,0 +1,19 @@
+<mat-card style="color: #fff; width: 30%;">
+  <mat-card-header>
+    <mat-card-subtitle>
+      Sort an array of Numbers
+    </mat-card-subtitle>
+    <mat-card-title>
+      Bubble sorter
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content >
+    <p> This is an bubble sorter that uses an unsorted list of numbers and returns a bubble sorted list</p>
+    <p><em>Unsorted list:</em> {{unsorted}}</p>
+    <br>
+    <button mat-raised-button style="margin-bottom: 10px;" color="primary" type="submit" (click)="sortArray()">Click me to sort!</button>
+    <br>
+
+    <p><em>Sorted List:</em> {{sorted$ | async}}</p>
+  </mat-card-content>
+</mat-card>

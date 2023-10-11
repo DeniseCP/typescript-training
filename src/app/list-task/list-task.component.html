@@ -1,0 +1,50 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Task List Search</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div style="display: flex; width: 35%; justify-content: space-between; align-items: center;">
+      <mat-form-field appearance="fill">
+        <mat-label>Search</mat-label>
+        <input matInput #search type="text" (keyup)="onKeyUp(search.value)">
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="button" (click)="clearSearch()">Cancel</button>
+    </div>
+  </mat-card-content>
+</mat-card>
+<table mat-table [dataSource]="taskList" class="mat-elevation-z8">
+  <!-- Task Title -->
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef> Title </th>
+    <td mat-cell *matCellDef="let task"> {{ task.title }} </td>
+  </ng-container>
+
+  <!-- Task Status -->
+  <ng-container matColumnDef="completed">
+    <th mat-header-cell *matHeaderCellDef> Status </th>
+    <td mat-cell *matCellDef="let task"> {{ task.completed ? 'Complete' : 'Incomplete' }} </td>
+  </ng-container>
+
+  <!-- Task Action -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> Actions</th>
+    <td mat-cell *matCellDef="let task">
+      <ng-container style="display: flex; justify-content: space-around;">
+        <button mat-mini-fab aria-label="Edit button" type="button">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-mini-fab color="warn" aria-label="Delete button" type="button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator
+  [pageSizeOptions]="[5, 10, 20]"
+  showFirstLastButtons
+  aria-label="Select page of periodic elements"></mat-paginator>
